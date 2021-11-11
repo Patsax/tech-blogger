@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { Comment } = require("../../models");
 const withAuth = require("../../utils/auth")
 
-router.get("/", withAuth, (req, res) => {
+router.get("/", (req, res) => {
     Comment.findAll({
         include: [{
             model: User,
@@ -13,7 +13,7 @@ router.get("/", withAuth, (req, res) => {
         .catch((err) => res.json(err));
 });
 
-router.get("/:id", withAuth, (req, res) => {
+router.get("/:id", (req, res) => {
     const requestedId = req.params.id;
     Comment.findOne({
         include: [{
@@ -28,7 +28,7 @@ router.get("/:id", withAuth, (req, res) => {
     .catch((err) => res.json(err));
 });
 
-router.post("/", withAuth, (req, res) => {
+router.post("/", (req, res) => {
     Comment.create({
         content: req.body.content,
         user_id: req.session.user_id
@@ -37,7 +37,7 @@ router.post("/", withAuth, (req, res) => {
     .catch((err) => res.json(err));
 });
 
-router.delete("/:id", withAuth, (req, res) => {
+router.delete("/:id", (req, res) => {
     Comment.destroy({
         where: {
             id: req.params.id,
@@ -48,7 +48,7 @@ router.delete("/:id", withAuth, (req, res) => {
     .catch((err) => res.json(err));
 });
 
-router.put("/:id", withAuth, (req, res) => {
+router.put("/:id", (req, res) => {
     Comment.update(
         {
             content: req.body.content 
