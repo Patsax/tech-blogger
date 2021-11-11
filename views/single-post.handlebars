@@ -1,0 +1,51 @@
+{{log onePost}}
+<div class="">
+    <div class="card">
+        <div class="card-header flex-row">
+            <h2>
+                {{onePost.title}}
+            </h2>
+            <div>
+                <p>
+                    posted by: {{onePost.user.name}} on {{format_date onePost.createdAt}}
+                </p>
+            </div>
+            <div>
+                {{onePost.content}}
+            </div>
+        </div>
+    </div>
+    {{#if onePost.comments}}
+    <div class="card">
+        <div class="card-header">
+            <h2>
+                comments
+            </h2>
+        </div>
+        <div class="card-body">
+            {{#each onePost.comments}}
+            <div>
+                <p>
+                    {{content}}
+                </p>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    <form id="newComment" class="card">
+        <div class="card-header">
+            <h2>
+                add new comment
+            </h2>
+        </div>
+        <div class="card-body">
+            <input type="hidden" id="postId" value="{{onePost.id}}"/>
+            <textarea name="commentContent" id="content" cols="30" rows="10"></textarea>
+            <button class="btn">submit</button>
+        </div>
+    </form>
+</div>
+
+<script src="../public/js/comment.js"></script>
